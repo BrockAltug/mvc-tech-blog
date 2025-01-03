@@ -1,17 +1,27 @@
 [
   {
-    "name": "Sal",
-    "email": "sal@hotmail.com",
-    "password": "password12345"
+    "username": "techguru",
+    "email": "techguru@example.com",
+    "password": "password123"
   },
   {
-    "name": "Lernantino",
-    "email": "lernantino@gmail.com",
-    "password": "password12345"
+    "username": "codewizard",
+    "email": "codewizard@example.com",
+    "password": "password123"
   },
   {
-    "name": "Amiko",
-    "email": "amiko2k20@aol.com",
-    "password": "password12345"
+    "username": "debugmaster",
+    "email": "debugmaster@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "devqueen",
+    "email": "devqueen@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "frontendninja",
+    "email": "frontendninja@example.com",
+    "password": "password123"
   }
 ]

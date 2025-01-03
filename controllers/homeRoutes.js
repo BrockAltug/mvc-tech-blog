@@ -1,82 +1,125 @@
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
+// Render the homepage with all posts
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
-    const projectData = await Project.findAll({
+    const postData = await Post.findAll({
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['username'],
+        },
+      ],
+      order: [['created_at', 'DESC']],
+    });
+
+    const posts = postData.map((post) => post.get({ plain: true }));
+
+    res.render('homepage', {
+      posts,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to load the homepage.' });
+  }
+});
+
+// Render a single post with its comments
+router.get('/post/:id', async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+        {
+          model: Comment,
+          include: [{ model: User, attributes: ['username'] }],
         },
       ],
     });
 
-    // Serialize data so the template can read it
-    const projects = projectData.map((project) => project.get({ plain: true }));
+    if (!postData) {
+      return res.status(404).json({ message: 'No post found with this ID.' });
+    }
 
-    // Pass serialized data and session flag into template
-    res.render('homepage', { 
-      projects, 
-      logged_in: req.session.logged_in 
+    const post = postData.get({ plain: true });
+
+    res.render('post', {
+      ...post,
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.status(500).json({ message: 'Failed to load the post.' });
   }
 });
 
-router.get('/project/:id', async (req, res) => {
+// Render the dashboard for the logged-in user
+router.get('/dashboard', withAuth, async (req, res) => {
   try {
-    const projectData = await Project.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
-
-    const project = projectData.get({ plain: true });
-
-    res.render('project', {
-      ...project,
-      logged_in: req.session.logged_in
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
-  try {
-    // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{ model: Post }],
     });
+
+    if (!userData) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
 
     const user = userData.get({ plain: true });
 
-    res.render('profile', {
+    res.render('dashboard', {
       ...user,
-      logged_in: true
+      logged_in: true,
     });
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.status(500).json({ message: 'Failed to load the dashboard.' });
   }
 });
 
+// Render the edit post page
+router.get('/editPost/:id', withAuth, async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id);
+
+    if (!postData) {
+      return res.status(404).json({ message: 'No post found with this ID.' });
+    }
+
+    const post = postData.get({ plain: true });
+
+    res.render('editPost', {
+      ...post,
+      logged_in: true,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to load the edit post page.' });
+  }
+});
+
+// Render the login page
 router.get('/login', (req, res) => {
-  // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/profile');
-    return;
+    return res.redirect('/dashboard');
   }
 
   res.render('login');
+});
+
+// Render the signup page
+router.get('/signup', (req, res) => {
+  if (req.session.logged_in) {
+    return res.redirect('/dashboard');
+  }
+
+  res.render('signup');
 });
 
 module.exports = router;

@@ -41,8 +41,8 @@ const seedDatabase = async () => {
     console.log('Database seeded successfully!');
   } catch (err) {
     console.error('Failed to seed database:', err);
-    throw err;
+    process.exit(1);
   }
 };
 
-module.exports = seedDatabase;
+seedDatabase();

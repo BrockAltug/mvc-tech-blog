@@ -4,15 +4,14 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
-
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-
 const seedDatabase = require('./seeds/seed'); // Import the seed script
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({ helpers });
 
 const sess = {
@@ -43,24 +42,34 @@ app.use(routes);
 
 const startServer = async () => {
   try {
-    const forceSync = process.env.FORCE_SYNC === 'true';
+    console.log('Attempting to sync the database...');
 
+    const forceSync = process.env.FORCE_SYNC === 'true';
     await sequelize.sync({ force: forceSync });
     console.log('Database synced successfully');
 
-    if (forceSync && process.env.SEED_DB === 'true') {
+    if (process.env.SEED_DB === 'true') {
       console.log('Seeding database...');
       await seedDatabase();
       console.log('Database seeded successfully');
     }
 
-    app.listen(PORT, () =>
-      console.log(`Server is running on http://localhost:${PORT}`)
-    );
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
   } catch (err) {
     console.error('Failed to start server:', err);
     process.exit(1);
   }
 };
 
-startServer();
+// Explicitly check if the connection is successful before proceeding with syncing and seeding
+sequelize.authenticate()
+  .then(() => {
+    console.log('Database connection successful.');
+    startServer();
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+    process.exit(1);
+  });

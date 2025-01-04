@@ -1,22 +1,10 @@
 [
   {
-    "title": "Understanding JavaScript Closures",
-    "content": "Closures are a powerful feature in JavaScript that allow functions to retain access to their scope, even after the outer function has returned. Learn how closures work and how to use them effectively."
+    "title": "First Post",
+    "content": "This is my first post!"
   },
   {
-    "title": "CSS Grid vs. Flexbox: Which One to Use?",
-    "content": "Both CSS Grid and Flexbox are powerful layout tools. This article explores their differences and helps you decide which one to use for your next project."
-  },
-  {
-    "title": "Optimizing Web Performance",
-    "content": "Web performance optimization is critical for user experience and SEO. Learn about the top techniques to speed up your website."
-  },
-  {
-    "title": "The Future of Web Development",
-    "content": "As web technologies evolve, staying ahead of trends is crucial. Explore the future of web development and the technologies shaping it."
-  },
-  {
-    "title": "Getting Started with React Hooks",
-    "content": "React Hooks simplify state and lifecycle management in functional components. Here's how to get started with useState and useEffect."
+    "title": "Another Post",
+    "content": "This is another post."
   }
 ]

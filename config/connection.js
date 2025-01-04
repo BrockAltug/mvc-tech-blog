@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-require('dotenv').config();
+require('dotenv').config(); // Load environment variables from .env file
 
 let sequelize;
 
@@ -9,13 +9,13 @@ if (process.env.DATABASE_URL) {
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
-        require: true, // Enforce SSL for secure connection
-        rejectUnauthorized: false, // Allow self-signed certificates
+        require: true, // Enable SSL
+        rejectUnauthorized: false, // Accept self-signed certificates
       },
     },
   });
 } else {
-  // Local development: Use environment variables from .env file
+  // Local development: Use .env variables
   sequelize = new Sequelize(
     process.env.DB_NAME, // Database name
     process.env.DB_USER, // Database username

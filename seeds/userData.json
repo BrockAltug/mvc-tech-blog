@@ -1,27 +1,12 @@
 [
   {
-    "username": "techguru",
-    "email": "techguru@example.com",
+    "username": "user1",
+    "email": "user1@example.com",
     "password": "password123"
   },
   {
-    "username": "codewizard",
-    "email": "codewizard@example.com",
-    "password": "password123"
-  },
-  {
-    "username": "debugmaster",
-    "email": "debugmaster@example.com",
-    "password": "password123"
-  },
-  {
-    "username": "devqueen",
-    "email": "devqueen@example.com",
-    "password": "password123"
-  },
-  {
-    "username": "frontendninja",
-    "email": "frontendninja@example.com",
+    "username": "user2",
+    "email": "user2@example.com",
     "password": "password123"
   }
 ]

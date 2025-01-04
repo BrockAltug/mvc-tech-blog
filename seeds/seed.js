@@ -7,15 +7,17 @@ const commentData = require('./commentData.json');
 
 const seedDatabase = async () => {
   try {
+    console.log('Syncing database...');
     await sequelize.sync({ force: true });
+    console.log('Database synced successfully');
 
-    // Seed Users
+    console.log('Seeding users...');
     const users = await User.bulkCreate(userData, {
       individualHooks: true,
       returning: true,
     });
 
-    // Seed Posts
+    console.log('Seeding posts...');
     const posts = await Promise.all(
       postData.map(async (post) => {
         return await Post.create({
@@ -25,7 +27,7 @@ const seedDatabase = async () => {
       })
     );
 
-    // Seed Comments
+    console.log('Seeding comments...');
     await Promise.all(
       commentData.map(async (comment) => {
         return await Comment.create({
@@ -37,11 +39,10 @@ const seedDatabase = async () => {
     );
 
     console.log('Database seeded successfully!');
-    process.exit(0);
   } catch (err) {
     console.error('Failed to seed database:', err);
-    process.exit(1);
+    throw err;
   }
 };
 
-seedDatabase();
+module.exports = seedDatabase;

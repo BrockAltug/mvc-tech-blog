@@ -4,18 +4,18 @@ require('dotenv').config();
 let sequelize;
 
 if (process.env.DATABASE_URL) {
-  // Use the DATABASE_URL from Render
+  // Render environment: Use the DATABASE_URL
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
-        require: true, // Enable SSL
-        rejectUnauthorized: false, // Accept self-signed certificates
+        require: true,
+        rejectUnauthorized: false,
       },
     },
   });
 } else {
-  // Local development configuration
+  // Local development: Use .env variables
   sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,

@@ -1,10 +1,22 @@
 [
   {
-    "title": "First Post",
-    "content": "This is my first post!"
+    "title": "Exploring the Outdoors",
+    "content": "Just got back from a hike in the Rockies—absolutely breathtaking views! Highly recommend it to anyone who loves nature."
   },
   {
-    "title": "Another Post",
-    "content": "This is another post."
+    "title": "Coding Tips for Beginners",
+    "content": "If you're new to programming, focus on the basics first! Understand loops, functions, and data structures before jumping into frameworks."
+  },
+  {
+    "title": "Best Coffee Spots in NYC",
+    "content": "Discovered this hidden gem in Brooklyn today. Their latte art is next level!"
+  },
+  {
+    "title": "5 Ways to Stay Creative",
+    "content": "1. Take regular breaks. 2. Surround yourself with inspiring people. 3. Try something new every week. 4. Keep a journal. 5. Don't be afraid to fail!"
+  },
+  {
+    "title": "The Joy of Cooking",
+    "content": "Experimented with homemade pasta today, and it was such a rewarding experience. Any tips for sauce pairings?"
   }
 ]

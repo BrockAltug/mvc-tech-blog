@@ -1,5 +1,19 @@
+
 # MVC-Tech-Blog
 
+## Table of Contents
+1. [Overview](#overview)
+2. [Demo](#demo)
+3. [Concepts Covered](#concepts-covered)
+4. [Learning Objectives](#learning-objectives)
+5. [Technologies Used](#technologies-used)
+6. [Summary](#summary)
+7. [Features](#features)
+8. [Setup and Installation](#setup-and-installation)
+   - [Prerequisites](#prerequisites)
+   - [Steps to Run Locally](#steps-to-run-locally)
+   - [Deploying to Render](#deploying-to-render)
+   
 ## Overview
 
 This project is a CMS-style blog site built from scratch using the **Model-View-Controller (MVC)** architecture. The application allows developers to create and manage blog posts, as well as comment on other developers' posts. The app utilizes **Sequelize** as the ORM, **Handlebars.js** for templating, and **express-session** for authentication. The blog is deployed on **Render**, making it accessible online.
@@ -17,7 +31,6 @@ The main goal of the project is to implement a dynamic CMS that allows users to 
 ## Concepts Covered
 
 - **MVC Architecture**: This project follows the MVC architecture where:
-
   - **Model**: Represents the data structure, including user, post, and comment models managed by Sequelize.
   - **View**: Handlebars.js is used for rendering the UI, ensuring separation of logic and presentation.
   - **Controller**: Handles the logic for user actions (e.g., creating, reading, updating, and deleting posts) via Express.js.
